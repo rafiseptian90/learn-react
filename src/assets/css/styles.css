@@ -1,0 +1,18 @@
+/* navbar styles */
+nav#navbar ul.nav-ul li.nav-item{
+    float:left;
+    margin-left: 2.7rem;
+}
+
+nav#navbar ul.nav-ul li.nav-item:first-child{
+    margin-left: 0 !important;
+}
+
+/* custom styles */
+.btn-rounded{
+    border-radius: 25px;
+}
+
+.btn-rounded:visited{
+    border:none !important
+}
