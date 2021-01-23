@@ -1,34 +1,48 @@
-import { useState } from 'react';
+import { Component } from 'react';
+import axios from 'axios';
 
-const Home = () => {
-    const [name, setName] = useState('Rshme');
 
-    function changeName(name){
-        let prm = prompt('Your name ?')
+class Home extends Component{
+    constructor() {
+        super();
 
-        if(prm){
-            setName(prm)
+        this.state = {
+            posts: []
         }
+
+        this.getPosts();
     }
 
-    return(
-        <div className="container px-14 py-7">
-            <h1 class="text-gray-800 text-3xl">
-                Homepage
-            </h1>
+    getPosts(){
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(({data}) => {
+                this.setState({
+                    posts: data.slice(0, 5)
+                })
+            })
+    }
 
-            <span className="block font-medium text-gray-700 my-5">
-                { name }
-            </span>
+    render(){
+        return(
+            <div className="container px-14 py-7">
+                <h1 className="text-gray-800 text-3xl mb-5">
+                    Homepage
+                </h1>
 
-            <button
-                className="bg-green-600 btn-rounded px-5 py-3 text-center font-semibold text-white outline-none border-none"
-                onClick={changeName}
-            >
-                Click Me
-            </button>
-        </div>
-    )
+                <ul className="list-disc">
+                    {
+                        this.state.posts.length > 0
+                        ? this.state.posts.map(post => {
+                                return(
+                                    <li>{ post.title }</li>
+                                )
+                            })
+                        : ''
+                    }
+                </ul>
+            </div>
+        )
+    }
 }
 
 export default Home;
