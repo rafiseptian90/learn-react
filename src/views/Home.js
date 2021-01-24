@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
+import BlogLists from "../components/BlogLists";
 
 
 class Home extends Component{
@@ -22,6 +23,13 @@ class Home extends Component{
             })
     }
 
+    deletePost(id, that){
+        let posts = that.state.posts.filter(post => post.id !== id)
+        that.setState({
+            posts: posts
+        })
+    }
+
     render(){
         return(
             <div className="container px-14 py-7">
@@ -29,17 +37,9 @@ class Home extends Component{
                     Homepage
                 </h1>
 
-                <ul className="list-disc">
-                    {
-                        this.state.posts.length > 0
-                        ? this.state.posts.map(post => {
-                                return(
-                                    <li>{ post.title }</li>
-                                )
-                            })
-                        : ''
-                    }
-                </ul>
+                <hr className="mb-7"/>
+
+                <BlogLists lists={ this.state.posts } delete={ this.deletePost } parent={this}/>
             </div>
         )
     }
