@@ -19,7 +19,7 @@ class BlogLists extends Component{
                                     <li
                                         className="mb-5 py-3 px-5 hover:bg-red-400 cursor-pointer"
                                         onClick={() => {
-                                            this.props.delete(list.id, this.props.parent)
+                                            this.props.delete(list.id)
                                         }}
                                     >
                                         <h3 className="text-2xl font-base text-green-700 hover:text-white">
