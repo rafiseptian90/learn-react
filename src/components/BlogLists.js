@@ -13,8 +13,8 @@ class BlogLists extends Component{
                 </h2>
                 <ul className="list-none">
                     {
-                        this.props.lists.length > 0
-                            ? this.props.lists.map(list => {
+                        this.props.posts.length > 0
+                            ? this.props.posts.map(list => {
                                 return(
                                     <li
                                         className="mb-5 py-3 px-5 hover:bg-red-400 cursor-pointer"

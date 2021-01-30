@@ -3,19 +3,18 @@ import axios from 'axios';
 import BlogLists from "../components/BlogLists";
 
 function Home(){
-    const [lists, setLists] = useState([]);
+    const [posts, setPosts] = useState(null);
 
     // use effect will call when the state is changes, the second param will counter it
     useEffect(() => {
-        // get data from json placeholder
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-            .then(({data}) => {
-                setLists(data.slice(0, 5))
-            })
+        // get data from json server
+        fetch('http://localhost:8000/blogs')
+            .then(res => res.json())
+            .then(data => setPosts(data))
     }, []);
 
     function deletePost(id){
-        setLists(lists.filter(list => list.id !== id))
+        setPosts(posts.filter(list => list.id !== id))
     }
 
     return(
@@ -26,7 +25,10 @@ function Home(){
 
             <hr className="mb-7"/>
 
-            <BlogLists lists={ lists } delete={ deletePost }/>
+            {
+                /* conditional rendering */
+                posts && <BlogLists posts={ posts } delete={ deletePost }/>
+            }
         </div>
     )
 }
