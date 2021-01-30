@@ -1,31 +1,22 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return(
         <nav id="navbar" className="bg-green-500 text-gray-100 grid grid-cols-2 items-center px-14 py-5">
-            <a href="" className="brand text-2xl font-semibold justify-self-start">
+            <Link to="/" className="brand text-2xl font-semibold justify-self-start">
                 Rshme Blog
-            </a>
+            </Link>
             <ul className="nav-ul list-none justify-self-end font-medium text-lg">
                 <li className="nav-item">
-                    <a href="" className="nav-link">
+                    <Link to="/" className="nav-link">
                         Home
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="" className="nav-link">
-                        Article
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a href="" className="nav-link">
-                        About Us
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a href="" className="nav-link">
-                        Contact Us
-                    </a>
+                    <Link to="/create" className="nav-link">
+                        New post
+                    </Link>
                 </li>
             </ul>
         </nav>
