@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useForm } from "../hooks/useForm";
 
 const Create = () => {
@@ -7,6 +8,7 @@ const Create = () => {
     const { value:title, bind:bindTitle, reset:resetTitle } = useForm('');
     const { value:content, bind:bindContent, reset:resetContent } = useForm('');
     const [isSending, setIsSending] = useState(false)
+    const history = useHistory()
 
     // styles
     const transform = {
@@ -35,6 +37,7 @@ const Create = () => {
                 console.log(res)
                 alert('New post added')
                 setIsSending(false)
+                history.push('/')
             })
     }
 
