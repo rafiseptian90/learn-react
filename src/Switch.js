@@ -6,6 +6,7 @@ import {
 import Home from "./views/Home";
 import Create from "./views/Create";
 import BlogDetail from "./views/BLogDetail";
+import { NotFound } from "./views/404";
 
 const Switch = () => {
     return(
@@ -19,6 +20,9 @@ const Switch = () => {
             </Route>
             <Route path="/post/:id">
                 <BlogDetail />
+            </Route>
+            <Route path="*">
+                <NotFound />
             </Route>
         </RouterSwitch>
     )
