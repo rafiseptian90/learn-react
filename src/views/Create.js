@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from "../hooks/useForm";
 
 const Create = () => {
@@ -5,6 +6,7 @@ const Create = () => {
     const { value:author, bind: bindAuthor, reset:resetAuthor } = useForm('');
     const { value:title, bind:bindTitle, reset:resetTitle } = useForm('');
     const { value:content, bind:bindContent, reset:resetContent } = useForm('');
+    const [isSending, setIsSending] = useState(false)
 
     // styles
     const transform = {
@@ -14,13 +16,26 @@ const Create = () => {
     function storeData(e){
         e.preventDefault();
 
+        setIsSending(true)
+
         const data = {
             author,
             title,
             content
         }
 
-        console.log(data)
+        fetch('http://localhost:8000/blogs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                console.log(res)
+                alert('New post added')
+                setIsSending(false)
+            })
     }
 
     return(
@@ -68,11 +83,28 @@ const Create = () => {
                        </div>
 
                        <div className="flex justify-end">
-                           <button type="submit"
-                               className="bg-blue-500 px-5 py-2 rounded text-center text-white text-lg font-semibold w-1/4 cursor-pointer mt-5 hover:bg-blue-600 transition-all"
-                           >
-                               Add post
-                           </button>
+                           {
+                               isSending
+                               &&
+                               <button
+                                   disabled
+                                   type="submit"
+                                   className="bg-blue-500 px-5 py-2 rounded text-center text-white text-lg font-semibold w-1/4 cursor-pointer mt-5 hover:bg-blue-600 transition-all"
+                               >
+                                   Sending...
+                               </button>
+                           }
+
+                           {
+                               !isSending
+                               &&
+                               <button
+                                   type="submit"
+                                   className="bg-blue-500 px-5 py-2 rounded text-center text-white text-lg font-semibold w-1/4 cursor-pointer mt-5 hover:bg-blue-600 transition-all"
+                               >
+                                   Add new post
+                               </button>
+                           }
                        </div>
                    </form>
                </div>
