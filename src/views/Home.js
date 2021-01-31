@@ -2,7 +2,7 @@ import BlogLists from "../components/BlogLists";
 import useFetch from "../hooks/useFetch";
 
 function Home(){
-    let { data, isLoading, error, deletePost} = useFetch('http://localhost:8000/blogs')
+    const { data, isLoading, error, deletePost} = useFetch('http://localhost:8000/blogs')
 
     return(
         <div className="container px-14 py-7">

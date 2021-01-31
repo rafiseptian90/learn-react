@@ -44,7 +44,14 @@ const useFetch = (url) => {
 
 
     function deletePost(id){
-        setData(data.filter(list => list.id !== id))
+        fetch(`http://localhost:8000/blogs/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => {
+                console.log(data)
+                alert('Post han been deleted')
+                setData(data.filter(post => post.id !== id))
+            })
     }
 
     // return usable state

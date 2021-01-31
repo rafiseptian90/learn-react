@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as Icon from 'react-feather';
 
 class BlogLists extends Component{
+
     render(){
         return(
             <div className="container">
