@@ -5,6 +5,7 @@ import {
 // import pages
 import Home from "./views/Home";
 import Create from "./views/Create";
+import BlogDetail from "./views/BLogDetail";
 
 const Switch = () => {
     return(
@@ -15,6 +16,9 @@ const Switch = () => {
             </Route>
             <Route path="/create">
                 <Create />
+            </Route>
+            <Route path="/post/:id">
+                <BlogDetail />
             </Route>
         </RouterSwitch>
     )
