@@ -8,9 +8,13 @@ const useFetch = (url) => {
 
     // use effect will call when the state is changes, the second param will counter it
     useEffect(() => {
+        // abort fetch when its running but user change the page
+        const abort = new AbortController()
+
         // get data from json server
         setTimeout(() => {
-            fetch(url)
+            // add signal params
+            fetch(url, { signal: abort.signal })
                 .then(res => {
                     if(!res.ok){
                         throw Error('Could not fetch data in this resource !')
@@ -22,10 +26,20 @@ const useFetch = (url) => {
                     setIsLoading(false)
                 })
                 .catch(err => {
-                    setIsLoading(false)
-                    setError(err.message)
+                    // don't update state if its aborted
+                    if(err.name === 'AbortError'){
+                        console.log('fetch aborted')
+                    }
+                    // update state if isn't aborted
+                    else{
+                        setIsLoading(false)
+                        setError(err.message)
+                    }
                 })
         }, 2000)
+
+        // return when aborted
+        return () => abort.abort()
     }, [url]);
 
 
