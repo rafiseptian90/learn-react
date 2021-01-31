@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useForm } from "../hooks/useForm";
 
 const Create = () => {
     // set state
-    const [form, setForm] = useState({
-        author: '',
-        title: '',
-        content: ''
-    })
+    const { value:author, bind: bindAuthor, reset:resetAuthor } = useForm('');
+    const { value:title, bind:bindTitle, reset:resetTitle } = useForm('');
+    const { value:content, bind:bindContent, reset:resetContent } = useForm('');
+
     // styles
     const transform = {
         transform: 'translate(-50%, -50%)'
+    }
+
+    function storeData(e){
+        e.preventDefault();
+
+        const data = {
+            author,
+            title,
+            content
+        }
+
+        console.log(data)
     }
 
     return(
@@ -19,16 +30,16 @@ const Create = () => {
                    Adding new post
                </h1>
                <div className="bg-white shadow-xl rounded-2xl px-5 py-7">
-                   <form>
+                   <form onSubmit={ storeData }>
                        <div className="container mb-3">
                            <label htmlFor="author" className="block mb-2">Author</label>
                            <input
                                type="text"
                                name="author"
                                id="author"
-                               value={form.author}
                                className="w-full border-opacity-80 rounded border-gray-600 border focus:outline-none p-2"
-                               onChange={(e) => setForm({ author: e.target.value })}
+                               {...bindAuthor}
+                               autoComplete="off"
                            />
                        </div>
                        <div className="container mb-3">
@@ -37,9 +48,9 @@ const Create = () => {
                                type="text"
                                name="title"
                                id="title"
-                               value={ form.title }
                                className="w-full border-opacity-80 rounded border-gray-600 border focus:outline-none p-2"
-                               onChange={(e) => setForm({ title: e.target.value })}
+                               autoComplete="off"
+                               {...bindTitle}
                            />
                        </div>
                        <div className="container">
@@ -49,18 +60,19 @@ const Create = () => {
                                name="content"
                                id="content"
                                className="w-full border-opacity-80 rounded border-gray-600 border focus:outline-none p-2 resize-none"
-                               onChange={(e) => setForm({ content: e.target.value })}
+                               autoComplete="off"
+                               { ...bindContent }
                            >
-                               { form.content }
+                               { content }
                            </textarea>
                        </div>
 
                        <div className="flex justify-end">
-                           <div
+                           <button type="submit"
                                className="bg-blue-500 px-5 py-2 rounded text-center text-white text-lg font-semibold w-1/4 cursor-pointer mt-5 hover:bg-blue-600 transition-all"
                            >
                                Add post
-                           </div>
+                           </button>
                        </div>
                    </form>
                </div>
